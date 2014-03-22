@@ -2,17 +2,29 @@ import os
 from flask import Flask, render_template, send_from_directory, redirect, request, session, url_for
 
 #----------------------------------------
-# initialization
+# initialization of Flask Application
 #----------------------------------------
 
 app = Flask(__name__)
-
 app.config.update(
     DEBUG = True,
 )
 
 #----------------------------------------
-# controllers
+# Database Configuration
+#----------------------------------------
+from mongoengine import connect
+from flask.ext.mongoengine import MongoEngine
+from models import Film_Location
+
+DB_NAME = 'film_location'
+app.config["MONGODB_DB"] = DB_NAME
+connect(DB_NAME, host="mongodb://localhost/film_location")
+# connect(DB_NAME, host='mongodb://' + DB_USERNAME + ':' + DB_PASSWORD + '@' + DB_HOST_ADDRESS)
+db = MongoEngine(app)
+
+#----------------------------------------
+# Controllers
 #----------------------------------------
 
 @app.route('/favicon.ico')
@@ -21,35 +33,30 @@ def favicon():
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html'), 404
+    return render_template('404.html')
 
 @app.route("/")
 def index():
     return render_template('index.html')
 
+@app.route("/display", methods=["GET"])
+def display_all_locations():
+    """Display film data on new page /display."""
+    all_data = {}
+    for film_location  in Film_Location.objects:
+        # Remove below line in final commit.
+        # film_location.delete()
+        try:
+            if film_location.title and film_location.location:
+                if film_location.title in all_data:
+                    all_data[film_location.title].append(str(film_location.location))
+                else:
+                    all_data[film_location.title] = [str(film_location.location)]
+        except:
+            print "KEY error!"
+    return render_template('display.html', all_data=all_data)
 #----------------------------------------
-# database
-#----------------------------------------
-
-from mongoengine import connect
-from flask.ext.mongoengine import MongoEngine
-
-DB_NAME = 'film_location'
-DB_USERNAME = 'ArcTanSusan'
-DB_PASSWORD = 'area51'
-DB_HOST_ADDRESS = 'ds031098.mongolab.com:31098/film_location'
-
-app.config["MONGODB_DB"] = DB_NAME
-connect(DB_NAME, host="mongodb://localhost/film_location")
-# connect(DB_NAME, host='mongodb://' + DB_USERNAME + ':' + DB_PASSWORD + '@' + DB_HOST_ADDRESS)
-db = MongoEngine(app)
-
-def print_all_locations():
-    for film_location in Film_Location.objects:
-        print film_location.location
-print_all_locations()
-#----------------------------------------
-# launch
+# Launch the app locally on PORT 5000. Go to localhost:5000.
 #----------------------------------------
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
