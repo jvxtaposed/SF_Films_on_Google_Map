@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template, send_from_directory, redirect, request, session, url_for
-
+import urllib2
+import urllib
 #----------------------------------------
 # initialization of Flask Application
 #----------------------------------------
@@ -26,17 +27,13 @@ db = MongoEngine(app)
 #----------------------------------------
 # Controllers
 #----------------------------------------
-
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'), 'ico/favicon.ico')
-
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html')
 
 @app.route("/")
-def index():
+def homepage():
+    """The single-page map webapp is rendered here."""
     return render_template('index.html')
 
 @app.route("/display", methods=["GET"])
