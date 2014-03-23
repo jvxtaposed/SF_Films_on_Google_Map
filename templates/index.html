@@ -31,7 +31,7 @@
       #pac-input:focus {
         border-color: #4d90fe;
         margin-left: -1px;
-        padding-left: 14px;  /* Regular padding-left + 1. */
+        padding-left: 14px;
         width: 401px;
       }
     </style>
@@ -59,8 +59,8 @@
           // window containing info about the movie title, filming location, fun facts, and actors.
           // Create a marker for each place.
           {% for title,all_locations in all_data.iteritems() %}
-              {% for location_text, lat,longitude in all_locations %}
-              // {{ location_text }}, Coordinates: {{ lat }}, {{ longitude }}
+              {% for location_text, lat, longitude, fun_facts in all_locations %}
+              // {{ location_text }}, Coordinates: {{ lat }}, {{ longitude }}, {{ fun_facts }}
                   var coordPosition = new google.maps.LatLng({{ lat }}, {{ longitude }});
                   var marker = new google.maps.Marker({
                       map: map,
@@ -72,7 +72,7 @@
 
                   var movieTitle = "{{ title }}";
                   var locationText = "{{ location_text }}";
-                  var funFactsText = "fun facts will be here!";
+                  var funFactsText = "{{ fun_facts }}";
                   var content = "<div class='content'><h4 class='movieTitle'>"+movieTitle +"</h4><div class='bodyContent'><p class='location'><b>Location:</b><br>" + locationText + "</p><p class='fun_facts'>" + "<b>Fun Facts:</b><br>" + funFactsText + "</p></div>";
                  // Create a pop-up window on click.
                   google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){

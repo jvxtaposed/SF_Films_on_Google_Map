@@ -30,22 +30,25 @@ db = MongoEngine(app)
 def page_not_found(e):
     return render_template('404.html')
 
-# @app.route("/")
-# def homepage():
-#     """The single-page map webapp is rendered here."""
-#     return render_template('index.html')
+@app.route("/drop")
+def drop_collection():
+    """Go to this url to drop the entire collection. Used only for dev testing on local server only."""
+    Film_Location.drop_collection()
+    return render_template('index.html',all_data={})
 
 @app.route("/", methods=["GET","POST"])
 def search_by_movie_title():
-    """Display film data sorted by movie titles."""
+    """The single-page map webapp is rendered here. Display film data sorted by movie titles."""
     all_data = {}
     for film_location in Film_Location.objects:
         try:
             if film_location.title and film_location.location:
+                # The film_location's title is already a key in the dictionary.
                 if film_location.title in all_data:
-                    all_data[film_location.title].append((film_location.location,str(film_location.latitude),str(film_location.longitude)))
+                    all_data[film_location.title].append((film_location.location,str(film_location.latitude),str(film_location.longitude),str(film_location.production_company)))
+                # The film_location's title is not yet a key in the dictionary, so add the key-value pair.
                 else:
-                    all_data[film_location.title] = [(film_location.location,str(film_location.latitude),str(film_location.longitude))]
+                    all_data[film_location.title] = [(film_location.location,str(film_location.latitude),str(film_location.longitude),str(film_location.production_company))]
         except:
             print "KEY error!"
             raise
