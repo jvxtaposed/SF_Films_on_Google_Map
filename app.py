@@ -45,10 +45,10 @@ def search_by_movie_title():
             if film_location.title and film_location.location:
                 # The film_location's title is already a key in the dictionary.
                 if film_location.title in all_data:
-                    all_data[film_location.title].append((film_location.location,str(film_location.latitude),str(film_location.longitude),str(film_location.production_company)))
+                    all_data[film_location.title].append((film_location.location,str(film_location.latitude),str(film_location.longitude),str(film_location.actor_1),str(film_location.release_year)))
                 # The film_location's title is not yet a key in the dictionary, so add the key-value pair.
                 else:
-                    all_data[film_location.title] = [(film_location.location,str(film_location.latitude),str(film_location.longitude),str(film_location.production_company))]
+                    all_data[film_location.title] = [(film_location.location,str(film_location.latitude),str(film_location.longitude),str(film_location.actor_1),str(film_location.release_year))]
         except:
             print "KEY error!"
             raise

@@ -7,6 +7,7 @@ from flask import Flask
 from flask.ext.mongoengine import MongoEngine
 from mongoengine import connect
 from models import Film_Location
+from mongoengine.base import ValidationError
 
 # Libraries used for geocoding the string location text
 import urllib2
@@ -66,11 +67,19 @@ def load_db():
             new_film_data.latitude = latitude
             new_film_data.longitude = longitude
             # Do checks on rest of JSON data to see if JSON dictionary key exists before placing as attribute in document.
-            rest_of_fields = ["release_year", "production_company", "director", "writer",
-                                    "actor1","actor2","actor3"]
-            for field in rest_of_fields:
-                if field in film_data:
-                    new_film_data.field = film_data[field]
+            if "release_year" in film_data:
+                new_film_data.release_year = film_data["release_year"]
+            if "production_company" in film_data:
+                new_film_data.production_company = film_data["production_company"]
+            if "director" in film_data:
+                new_film_data.director = film_data["director"]
+            if "writer" in film_data:
+                new_film_data.writer = film_data["writer"]
+            if "actor_1" in film_data:
+                new_film_data.actor_1 = film_data["actor_1"]
+            if "actor_2" in film_data:
+                new_film_data.actor_2 = film_data["actor_2"]
+            if "actor_3" in film_data:
+                new_film_data.actor_3 = film_data["actor_3"]
             new_film_data.save()
-
 load_db()
