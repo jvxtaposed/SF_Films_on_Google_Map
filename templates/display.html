@@ -4,13 +4,28 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
   </head>
   <body>
-   {% for title,all_locations in all_data.iteritems() %}
-   Movie Title: {{ title }} <br>
-   Locations of Filming:<br>
-    {% for location in all_locations %}
-        {{location}}<br>
-    {% endfor %}
-    <br><br>
-   {% endfor %}
+
+    {% if search_type.movie_search %}
+       {% for title,all_locations in all_data.iteritems() %}
+       Movie Title: {{ title }} <br>
+       Locations of Filming:<br>
+        {% for location in all_locations %}
+            {{ location }}<br>
+        {% endfor %}
+        <br><br>
+       {% endfor %}
+
+    {% elif search_type.location_search %}
+       {% for location,all_titles in all_data.iteritems() %}
+       Location: {{ location }} <br>
+       All movie titles filmed here:<br>
+        {% for title in all_titles %}
+            {{ title }}<br>
+        {% endfor %}
+        <br><br>
+       {% endfor %}
+
+    {% else %} none of above
+   {% endif %}
   </body>
 </html>

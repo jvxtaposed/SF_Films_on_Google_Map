@@ -36,13 +36,11 @@ def homepage():
     """The single-page map webapp is rendered here."""
     return render_template('index.html')
 
-@app.route("/display", methods=["GET"])
-def display_all_locations():
-    """Display film data on new page /display."""
+@app.route("/display_movies", methods=["GET","POST"])
+def search_by_movie_title():
+    """Display film data sorted by movie titles."""
     all_data = {}
     for film_location in Film_Location.objects:
-        # Remove below line in final commit.
-        # film_location.delete()
         try:
             if film_location.title and film_location.location:
                 if film_location.title in all_data:
@@ -51,7 +49,28 @@ def display_all_locations():
                     all_data[film_location.title] = [str(film_location.location)]
         except:
             print "KEY error!"
-    return render_template('display.html', all_data=all_data)
+            raise
+    search_type = {}
+    search_type["movie_search"] = "any random string here"
+    return render_template('display.html', all_data=all_data, search_type=search_type)
+
+@app.route("/display_location", methods=["GET","POST"])
+def search_by_location():
+    """Display film data sorted by non-geocoded locations."""
+    all_data = {}
+    for film_location in Film_Location.objects:
+        try:
+            if film_location.title and film_location.location:
+                if film_location.title in all_data:
+                    all_data[film_location.location].append(str(film_location.title))
+                else:
+                    all_data[film_location.location] = [str(film_location.title)]
+        except:
+            print "KEY error!"
+            raise
+    search_type = {}
+    search_type["location_search"] ="any random string here"
+    return render_template('display.html', all_data=all_data, search_type=search_type)
 #----------------------------------------
 # Launch the app locally on PORT 5000. Go to localhost:5000.
 #----------------------------------------
