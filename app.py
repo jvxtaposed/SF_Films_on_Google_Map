@@ -40,7 +40,7 @@ def homepage():
 def display_all_locations():
     """Display film data on new page /display."""
     all_data = {}
-    for film_location  in Film_Location.objects:
+    for film_location in Film_Location.objects:
         # Remove below line in final commit.
         # film_location.delete()
         try:
