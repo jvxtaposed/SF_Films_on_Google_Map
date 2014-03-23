@@ -41,7 +41,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script type="text/javascript">
       function initialize() {
-         // Center the map.
+         // Center the map to be at San Francisco, the home city of Uber.
           var myLatlng = new google.maps.LatLng(37.7583, -122.4275);
           var mapOptions = {
               center: myLatlng,
@@ -54,12 +54,6 @@
               new google.maps.LatLng(37.73, -122.45),
               new google.maps.LatLng(37.82, -122.40));
           map.fitBounds(defaultBounds);
-          var infowindow;
-          google.maps.event.addListener(map, 'click', function() {
-              if (infowindow) {
-                  infowindow.close();
-              }
-          });
           // Place ALL the film locations on the Google Map using the map markers. Each marker has a pop-up info
           // window containing info about the movie title, filming location, fun facts, and actors.
           // Create a marker for each place.
@@ -79,25 +73,20 @@
                   var releaseYearText = "{{ release_year }}";
                   var content = "<div class='content'><h4 class='movieTitle'>"+movieTitle +"</h4><div class='bodyContent'><p class='location'><b>Location</b><br>" + locationText + "</p><p class='fun_facts'>" + "<b>Fun Facts</b><br>" + funFactsText  + releaseYearText.toString() + "</p></div>";
 
-                  // Close previous pop-up info window when user clicks on new marker.
-                  google.maps.event.addListener(marker, 'click', function() {
-                      if (infowindow) {
-                            infowindow.close();
-                      }
-                      infowindow = new google.maps.InfoWindow();
-                  });
-
                   // Create a new pop-up info window on click.
                   var infowindow = new google.maps.InfoWindow({});
                   google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){
                       return function() {
                             infowindow.setContent(content);
                             infowindow.open(map,marker);
+                            // Close the infowindow after 5 seconds to avoid crowding map with pop-ups.
+                            setTimeout(function () { infowindow.close(); }, 5000);
                       };
                   })(marker,content,infowindow));
                {% endfor %}
              {% endfor %}
             {% endif %}
+
 /*
            // Create autocompletion search box.
            var input = (document.getElementById('pac-input'));
