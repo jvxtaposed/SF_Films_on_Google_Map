@@ -66,7 +66,7 @@ def load_db():
             print latitude, longitude
             new_film_data.latitude = latitude
             new_film_data.longitude = longitude
-            # Do checks on rest of JSON data to see if JSON dictionary key exists before placing as attribute in document.
+            # Do checks on rest of JSON data to see if JSON dictionary key exists before setting object's new attribute.
             if "release_year" in film_data:
                 new_film_data.release_year = film_data["release_year"]
             if "production_company" in film_data:
