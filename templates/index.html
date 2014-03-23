@@ -81,7 +81,6 @@
               // For each place, get the icon, place name, and location.
               var bounds = new google.maps.LatLngBounds();
               for (var i = 0, place; place = places[i]; i++) {
-                debugger;
                   // Create the icon image associated with the place result. Otherwise, the default is a red point icon.
                   var image = {
                       url: place.icon,
@@ -96,24 +95,21 @@
                       icon: image,
                       title: place.name,
                       position: place.geometry.location
-                      content: "<div name='place_name'>"+ place.name +"</div>",
                   });
 
-                 // Create a pop-up window on click. TODO: buggy! Only the last marker is tagged with a popup window.
-                  google.maps.event.addListener(marker,'click', (function(marker,marker.content,infowindow){
+                  var content ="<div class='content'><h4 class='place_name'>"+place.name+"</h4><p class='location'>"
+                      +"<b>Location:</b><br>" + place.formatted_address + "</p></div>";
+
+                  if (place.price_level) {
+                      content += "<p class='price_level'><b>Price Level:</b><br>"+ place.price_level.toString() +"</p>";
+                  }
+                 // Create a pop-up window on click.
+                  google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){
                       return function() {
-                          infowindow.setContent(marker.content);
+                          infowindow.setContent(content);
                           infowindow.open(map,marker);
                       };
                   })(marker,content,infowindow));
-
-                  // Create a pop-up window on click. TODO: buggy! Only the last marker is tagged with a popup window.
-                  // var infowindow = new google.maps.InfoWindow({
-                  //     content:"<div name='place_name'>"+ place.name +"</div>",
-                  // });
-                  // google.maps.event.addListener(marker, 'click', function() {
-                  //     infowindow.open(map,marker);
-                  // });
               }
             });
            google.maps.event.addListener(map, 'bounds_changed', function() {
