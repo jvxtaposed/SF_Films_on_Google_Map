@@ -96,14 +96,24 @@
                       icon: image,
                       title: place.name,
                       position: place.geometry.location
+                      content: "<div name='place_name'>"+ place.name +"</div>",
                   });
+
+                 // Create a pop-up window on click. TODO: buggy! Only the last marker is tagged with a popup window.
+                  google.maps.event.addListener(marker,'click', (function(marker,marker.content,infowindow){
+                      return function() {
+                          infowindow.setContent(marker.content);
+                          infowindow.open(map,marker);
+                      };
+                  })(marker,content,infowindow));
+
                   // Create a pop-up window on click. TODO: buggy! Only the last marker is tagged with a popup window.
-                  var infowindow = new google.maps.InfoWindow({
-                      content:"<div name='place_name'>"+ place.name +"</div>",
-                  });
-                  google.maps.event.addListener(marker, 'click', function() {
-                      infowindow.open(map,marker);
-                  });
+                  // var infowindow = new google.maps.InfoWindow({
+                  //     content:"<div name='place_name'>"+ place.name +"</div>",
+                  // });
+                  // google.maps.event.addListener(marker, 'click', function() {
+                  //     infowindow.open(map,marker);
+                  // });
               }
             });
            google.maps.event.addListener(map, 'bounds_changed', function() {
