@@ -8,7 +8,7 @@
       #map-canvas { height: 100% }
 
       a {
-        color: #3c7ee2;
+        color: #2FC2EF;
       }
       a:hover {
         color: #3c7ee2;
@@ -75,11 +75,12 @@
                       position: coordPosition
                   });
                   var movieTitleText = "{{ title }}";
-                  var movieRTLink = encodeMovieTitleForRTLink(movieTitleText);
+                  var movieRTLink = encodeTextForRTLink(movieTitleText);
                   var locationText = "{{ location_text }}";
                   var directorText = "{{ director }}";
+                  var directorRTLink = encodeTextForRTLink(directorText);
                   var releaseYearText = "{{ release_year }}";
-                  var content = "<div class='content'><h4 class='movieTitle'><a  target='_blank' href='http://www.rottentomatoes.com/m/"+movieRTLink +"''>"+ movieTitleText +" </a> " +" ("+ releaseYearText.toString() +")" +"</h4><div class='bodyContent'><p class='location'><p class='fun_facts'>" + "<b>Directed by</b><br>" + directorText  + "</p></div><b>Location</b><br>" + locationText + "</p>";
+                  var content = "<div class='content'><h4 class='movieTitle'><a  target='_blank' href='http://www.rottentomatoes.com/m/"+movieRTLink +"''>"+ movieTitleText +"</a> " +" ("+ releaseYearText.toString() +")" +"</h4><div class='bodyContent'><p class='location'><p class='fun_facts'>" + "<b>Directed by</b><br><a  target='_blank' href='http://www.rottentomatoes.com/celebrity/"+directorRTLink +"''>" + directorText  + "</a></p></div><b>Location</b><br>" + locationText + "</p>";
 
                   // Create a new pop-up info window on click.
                   var infowindow = new google.maps.InfoWindow({});
@@ -145,9 +146,9 @@
 */
       }
 
-      function encodeMovieTitleForRTLink(movieTitle) {
-            movieTitle = movieTitle.replace(/ /g,"_");
-            return movieTitle;
+      function encodeTextForRTLink(name) {
+            name = name.replace(/ /g,"_");
+            return name;
       }
       google.maps.event.addDomListener(window, 'load', initialize);
     </script>
