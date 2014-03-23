@@ -44,10 +44,9 @@ def search_by_movie_title():
         try:
             if film_location.title and film_location.location:
                 if film_location.title in all_data:
-                    print film_location.latitude, film_location.longitude
-                    all_data[film_location.title].append((str(film_location.latitude),str(film_location.longitude)))
+                    all_data[film_location.title].append((film_location.location,str(film_location.latitude),str(film_location.longitude)))
                 else:
-                    all_data[film_location.title] = [(str(film_location.latitude),str(film_location.longitude))]
+                    all_data[film_location.title] = [(film_location.location,str(film_location.latitude),str(film_location.longitude))]
         except:
             print "KEY error!"
             raise
