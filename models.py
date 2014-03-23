@@ -22,9 +22,13 @@ db = MongoEngine(app)
 # Define classes below.
 #----------------------------------------
 class Film_Location(db.Document):
+    """The movie title, location, latitude, and longitude are required fields for the row to exist in db, because the 2
+    most important attributes on the client side are the movie title and its filming locations."""
     title = db.StringField(max_length=1000, required=True)
     release_year = db.IntField(min_value=1900, max_value=3000, required=False)
     location = db.StringField(max_length=1000, required=True)
+    latitude = db.FloatField(min_value=-1000, max_value=1000, required=True)
+    longitude= db.FloatField(min_value=-1000, max_value=1000, required=True)
     production_company = db.StringField(max_length=200, required=False)
     director = db.StringField(max_length=1000, required=False)
     writer = db.StringField(max_length=1000, required=False)

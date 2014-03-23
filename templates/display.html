@@ -9,8 +9,8 @@
        {% for title,all_locations in all_data.iteritems() %}
        Movie Title: {{ title }} <br>
        Locations of Filming:<br>
-        {% for location in all_locations %}
-            {{ location }}<br>
+        {% for lat,long in all_locations %}
+            {{ lat }}, {{ long }}<br>
         {% endfor %}
         <br><br>
        {% endfor %}

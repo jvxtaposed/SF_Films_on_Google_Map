@@ -1,7 +1,6 @@
 import os
 from flask import Flask, render_template, send_from_directory, redirect, request, session, url_for
-import urllib2
-import urllib
+
 #----------------------------------------
 # initialization of Flask Application
 #----------------------------------------
@@ -36,6 +35,7 @@ def homepage():
     """The single-page map webapp is rendered here."""
     return render_template('index.html')
 
+
 @app.route("/display_movies", methods=["GET","POST"])
 def search_by_movie_title():
     """Display film data sorted by movie titles."""
@@ -44,9 +44,10 @@ def search_by_movie_title():
         try:
             if film_location.title and film_location.location:
                 if film_location.title in all_data:
-                    all_data[film_location.title].append(str(film_location.location))
+                    print film_location.latitude, film_location.longitude
+                    all_data[film_location.title].append((str(film_location.latitude),str(film_location.longitude)))
                 else:
-                    all_data[film_location.title] = [str(film_location.location)]
+                    all_data[film_location.title] = [(str(film_location.latitude),str(film_location.longitude))]
         except:
             print "KEY error!"
             raise

@@ -25,6 +25,7 @@
           var marker = new google.maps.Marker({
               position: myLatlng,
               map: map,
+              title: "hello"
           })
           var locationText = "location text will be here";
           var funFactsText = "fun facts will be here!";
@@ -40,6 +41,10 @@
     </script>
   </head>
   <body>
-    <div id="map-canvas"/>
+    <div id="map-canvas">
+      <form>
+        Search by location: <input type="text" name="location_search" placeholder="Grace Cathedral">
+      </form>
+    </div>
   </body>
 </html>

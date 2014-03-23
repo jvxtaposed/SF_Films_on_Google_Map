@@ -78,7 +78,7 @@
 , {
   "title" : "180",
   "actor_1" : "Siddarth",
-  "locations" : "Randall Musuem",
+  "locations" : "Randall Museum",
   "release_year" : "2011",
   "production_company" : "SPI Cinemas",
   "actor_2" : "Nithya Menon",
@@ -108,7 +108,7 @@
 , {
   "title" : "50 First Dates",
   "actor_1" : "Adam Sandler",
-  "locations" : "Rainforest Café (145 Jefferson Street)",
+  "locations" : "145 Jefferson Street",
   "release_year" : "2004",
   "production_company" : "Columbia Pictures Corporation",
   "distributor" : "Columbia Pictures",
@@ -131,7 +131,7 @@
 , {
   "title" : "A Jitney Elopement",
   "actor_1" : "Charles Chaplin",
-  "locations" : "20th and Folsom Streets",
+  "locations" : "20th and Folsom Street",
   "release_year" : "1915",
   "production_company" : "The Essanay Film Manufacturing Company",
   "distributor" : "General Film Company",
@@ -141,7 +141,7 @@
 , {
   "title" : "A Night Full of Rain",
   "actor_1" : "Candice Bergen",
-  "locations" : "San Francisco Chronicle (901 Mission Street at 15th Street)",
+  "locations" : "901 Mission Street",
   "fun_facts" : "The San Francisco Zodiac Killer of the late 1960s sent his notes and letters to the Chronicle's offices.",
   "release_year" : "1978",
   "production_company" : "Liberty Film",
@@ -153,7 +153,7 @@
 , {
   "title" : "A Night Full of Rain",
   "actor_1" : "Candice Bergen",
-  "locations" : "Fairmont Hotel (950 Mason Street, Nob Hill)",
+  "locations" : "950 Mason Street, Nob Hill",
   "fun_facts" : "In 1945 the Fairmont hosted the United Nations Conference on International Organization as delegates arrived to draft a charter for the organization. The U.S. Secretary of State, Edward Stettinus drafted the charter in the hotel's Garden Room.",
   "release_year" : "1978",
   "production_company" : "Liberty Film",
