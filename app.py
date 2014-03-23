@@ -30,13 +30,12 @@ db = MongoEngine(app)
 def page_not_found(e):
     return render_template('404.html')
 
-@app.route("/")
-def homepage():
-    """The single-page map webapp is rendered here."""
-    return render_template('index.html')
+# @app.route("/")
+# def homepage():
+#     """The single-page map webapp is rendered here."""
+#     return render_template('index.html')
 
-
-@app.route("/display_movies", methods=["GET","POST"])
+@app.route("/", methods=["GET","POST"])
 def search_by_movie_title():
     """Display film data sorted by movie titles."""
     all_data = {}
@@ -52,7 +51,7 @@ def search_by_movie_title():
             raise
     search_type = {}
     search_type["movie_search"] = "any random string here"
-    return render_template('display.html', all_data=all_data, search_type=search_type)
+    return render_template('index.html', all_data=all_data, search_type=search_type)
 
 @app.route("/display_location", methods=["GET","POST"])
 def search_by_location():

@@ -41,54 +41,39 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script type="text/javascript">
       function initialize() {
+         // Center the map.
           var myLatlng = new google.maps.LatLng(37.7583, -122.4275);
           var mapOptions = {
               center: myLatlng,
           };
+          // Select the map id canvas.
           var map = new google.maps.Map(document.getElementById("map-canvas"),
               mapOptions);
-
-          // Add a hard-coded single marker to the map.
-          // var location_marker = new google.maps.Marker({
-          //     position: myLatlng,
-          //     map: map,
-          //     title: "hello"
-          // })
-          // var locationText = "location text will be here";
-          // var funFactsText = "fun facts will be here!";
-          // var contentString= "<div class='content'><h4 class='movieTitle'>My Movie Title</h4><div class='bodyContent'><p class='location'>Location:<br>" + locationText + "</p><p class='fun_facts'>" + "Fun Facts:<br>" + funFactsText + "</p></div>";
-          // var infowindow = new google.maps.InfoWindow({
-          //   content:contentString
-          // });
-          // google.maps.event.addListener(location_marker, 'click', function() {
-          //     infowindow.open(map,location_marker);
-          // });
-
           // Create boundaries for the map.
           var defaultBounds = new google.maps.LatLngBounds(
               new google.maps.LatLng(37.73, -122.45),
               new google.maps.LatLng(37.82, -122.40));
           map.fitBounds(defaultBounds);
 
-          // Place ALL the film locations on the map.
+          // Place ALL the film locations on the Google Map using the map markers. Each marker has a pop-up info
+          // window containing info about the movie title, filming location, fun facts, and actors.
           // Create a marker for each place.
-          {% if search_type.movie_search %}
           {% for title,all_locations in all_data.iteritems() %}
-            {% for location_text, lat,longitude in all_locations %}
-              {{ location_text }}, Coordinates: {{ lat }}, {{ longitude }}<br>
+              {% for location_text, lat,longitude in all_locations %}
+              // {{ location_text }}, Coordinates: {{ lat }}, {{ longitude }}
+                  var coordPosition = new google.maps.LatLng({{ lat }}, {{ longitude }});
                   var marker = new google.maps.Marker({
                       map: map,
-                      icon: image,
-                      title: place.name,
-                      position: place.geometry.location
+                      title: "{{ location_text }}",
+                      position: coordPosition
+                  });
+                  var infowindow = new google.maps.InfoWindow({
                   });
 
-                  // var content ="<div class='content'><h4 class='place_name'>"+place.name+"</h4><p class='location'>"
-                  //     +"<b>Location:</b><br>" + place.formatted_address + "</p></div>";
-                  var content = "what the fuck";
-                  if (place.price_level) {
-                      content += "<p class='price_level'><b>Price Level:</b><br>"+ place.price_level.toString() +"</p>";
-                  }
+                  var movieTitle = "{{ title }}";
+                  var locationText = "{{ location_text }}";
+                  var funFactsText = "fun facts will be here!";
+                  var content = "<div class='content'><h4 class='movieTitle'>"+movieTitle +"</h4><div class='bodyContent'><p class='location'><b>Location:</b><br>" + locationText + "</p><p class='fun_facts'>" + "<b>Fun Facts:</b><br>" + funFactsText + "</p></div>";
                  // Create a pop-up window on click.
                   google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){
                       return function() {
@@ -96,10 +81,10 @@
                           infowindow.open(map,marker);
                       };
                   })(marker,content,infowindow));
-              }
                {% endfor %}
-          {% endif %}
+             {% endfor %}
 
+/*
            // Create autocompletion search box.
            var input = (document.getElementById('pac-input'));
            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
@@ -146,6 +131,7 @@
               var bounds = map.getBounds();
               searchBox.setBounds(bounds);
            });
+*/
       }
       google.maps.event.addDomListener(window, 'load', initialize);
     </script>
