@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, send_from_directory, redirect, request, session, url_for
+from flask import Flask, render_template
 
 #----------------------------------------
 # initialization of Flask Application
@@ -29,12 +29,6 @@ db = MongoEngine(app)
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html')
-
-@app.route("/drop")
-def drop_collection():
-    """Go to this url to drop the entire collection. Used only for dev testing on local server only."""
-    Film_Location.drop_collection()
-    return render_template('index.html',all_data={})
 
 @app.route("/", methods=["GET","POST"])
 def search_by_movie_title():
