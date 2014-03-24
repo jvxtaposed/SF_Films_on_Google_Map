@@ -6,12 +6,8 @@
       html { height: 100% }
       body { height: 100%; }
       #map-canvas { height: 100% }
-      a {
+      a .window {
         color: #2FC2EF;
-      }
-      a:hover {
-        color: #3c7ee2;
-        text-decoration: underline;
       }
       .release_year_filter {
         left: 503px;
@@ -135,7 +131,7 @@
                   var directorText = "{{ director }}";
                   var directorRTLink = encodeTextForRTLink(directorText);
                   var releaseYearText = "{{ release_year }}";
-                  var content = "<div class='content'><h4 class='movieTitle'><a  target='_blank' href='http://www.rottentomatoes.com/m/"+movieRTLink +"''>"+ movieTitleText +"</a> " +" ("+ releaseYearText.toString() +")" +"</h4><div class='bodyContent'><p class='location'><p class='fun_facts'>" + "<b>Directed by</b><br><a  target='_blank' href='http://www.rottentomatoes.com/celebrity/"+directorRTLink +"''>" + directorText  + "</a></p></div><b>Location</b><br>" + locationText + "</p>";
+                  var content = "<div class='content'><h4 class='movieTitle'><a class='window' target='_blank' href='http://www.rottentomatoes.com/m/"+movieRTLink +"''>"+ movieTitleText +"</a> " +" ("+ releaseYearText.toString() +")" +"</h4><div class='bodyContent'><p class='location'><p class='fun_facts'>" + "<b>Directed by</b><br><a class='window' target='_blank' href='http://www.rottentomatoes.com/celebrity/"+directorRTLink +"''>" + directorText  + "</a></p></div><b>Location</b><br>" + locationText + "</p>";
 
                   // Create a new pop-up info window on click.
                   var infowindow = new google.maps.InfoWindow({});
