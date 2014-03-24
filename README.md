@@ -10,21 +10,25 @@ I made a full-stack webapp, because I love to program in both Python and Javascr
 
 ###Reasoning behind your technical choices (and level of experience with those)###
 I decided to use Flask, because I was familiar with this Python microframework from making previous webapps.
+
 **Level of experience with Flask**: proficient.
 
 I decided to use MongoDB, because it is a production-level, deployment friendly, and easy-to-use noSQL storage system.
+
 **Level of experience with MongoDB**: beginner.
 
 I decided to do geo-encoding on the controller level, because it is much simpler to do in Python than with using Javascript.
 The urllib libraries are especially useful for doing GET requests to the maps APIs and for url encoding.
+
 **Level of experience with Python**: proficient.
 
 I decided to use the Google Maps API for the map display, geo-coding, and autocompletion search, because
 this is the most well-known map API that contains many features.
+
 **Level of experience with Google Maps API**: beginner.
 **Level of experience with Javascript**: proficient.
 
-The purple ribbon at the top of the page comes from this source: http://css-tricks.com/snippets/css/ribbon/
+The purple ribbon at the top of the webapp comes from this source: http://css-tricks.com/snippets/css/ribbon/
 
 ###A limitation in Javascript prevented me from implementing a more optiomal solution for concatenating HTML strings.###
 
@@ -35,8 +39,7 @@ readability, I would've used the jquery `append` method to create html elements 
 route, then the input paramters for `content` would then be an object instead of the required string input type
 that the Google Maps API requires. Javascript lacks an in-built convenience method to cast an object to a string, unfortunately.
 
-###Trade-offs you might have made, anything you left out, or what you might do differently if you were to spend
-additional time on the project###
+###Trade-offs you might have made, anything you left out, or what you might do differently if you were to spend additional time on the project###
 
 The biggest disadvantage of this single-page webapp is that the entire work is monolithic. Most of the page rendering
 and the filtering is done by one Javascript `initialize` function. If I had more time, I would refactor the large JS
@@ -67,7 +70,7 @@ a language, and build up software skills through code reviews. As a hobby over t
 been contributing to 3 large Python-based open source projects. Below are my commits that have landed on the
 master repositories of the following Python projects:
 
-**Django the web framework**
+**Django the web framework**: All in Python.
 https://github.com/django/django/commits/master?author=onceuponatimeforever
 
 **OpenHatch.org**: My contributions are in both Javascript and Python.
