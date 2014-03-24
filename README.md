@@ -10,7 +10,9 @@ able to filter the view using autocompletion search. The data is available on Da
 1. Make sure you have virtualenv installed. Then, create a virtualenv by`virtualenv <myEnvName> --no-site-packages`.
 2. Enter your newly created virtualenv  by `source <myEnvName> bin/activate`.
 3. Install all dependencies with `pip install -r requirements.txt`.
-4.`python app.py` and go to the url: localhost:5000.
+4. Open up mongo local instance by typing in `mongod`.
+5. Seed the MongoDB database by running `importer.py`.
+4. Run`python app.py` and go to the url: localhost:5000.
 
 ###The technical track you chose (full stack, back-end or front-end)###
 I made a full-stack webapp, because I love to program in both Python and Javascript.
