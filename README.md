@@ -5,6 +5,13 @@ Plot SF Movie Locations on a Map
 Create a service that shows on a map where movies have been filmed in San Francisco. The user should be
 able to filter the view using autocompletion search. The data is available on DataSF: Film Locations.
 
+### How to run this app locally on your computer###
+0. Clone this github repo on the command line.
+1. Make sure you have virtualenv installed. Then, create a virtualenv by`virtualenv <myEnvName> --no-site-packages`.
+2. Enter your newly created virtualenv  by `source <myEnvName> bin/activate`.
+3. Install all dependencies with `pip install -r requirements.txt`.
+4.`python app.py` and go to the url: localhost:5000.
+
 ###The technical track you chose (full stack, back-end or front-end)###
 I made a full-stack webapp, because I love to program in both Python and Javascript.
 
