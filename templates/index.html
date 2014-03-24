@@ -14,6 +14,15 @@
         color: #3c7ee2;
         text-decoration: underline;
       }
+
+      .release_year_filter {
+        left: 503px;
+        top: 12px;
+      }
+
+      .filter_instruction {
+        font-size: 18px;
+      }
       .controls {
         margin-top: 16px;
         border: 1px solid transparent;
@@ -64,6 +73,7 @@
           // Place ALL the film locations on the Google Map using the map markers. Each marker has a pop-up info
           // window containing info about the movie title, filming location, fun facts, and actors.
           // Create a marker for each place.
+          markerArray = [];
           {% if search_type.movie_search %}
             {% for title,all_locations in all_data.iteritems() %}
               {% for location_text, lat, longitude, director, release_year in all_locations %}
@@ -72,8 +82,10 @@
                   var marker = new google.maps.Marker({
                       map: map,
                       title: "{{ location_text }}",
-                      position: coordPosition
+                      position: coordPosition,
+                      releaseYear: "{{ release_year}}"
                   });
+                  markerArray.push(marker);
                   var movieTitleText = "{{ title }}";
                   var movieRTLink = encodeTextForRTLink(movieTitleText);
                   var locationText = "{{ location_text }}";
@@ -96,10 +108,25 @@
              {% endfor %}
             {% endif %}
 
+          var releaseYearSlide = $("#slide");
+          // Attach "change" event handler on the year slider and when slider changes, then markers are hidden or shown.
+          releaseYearSlide.on("change", function() {
+              document.getElementById("display_year").innerHTML = this.value;
 
-           // Create autocompletion search box.
+              for (var markerCount=0;markerCount<markerArray.length;markerCount++) {
+                  if (parseInt(markerArray[markerCount].releaseYear) <= parseInt(this.value)) {
+                      // Hide the marker locations that are less than the release year.
+                      markerArray[markerCount].setVisible(false);
+                  } else {
+                    markerArray[markerCount].setVisible(true);
+                  }
+              }
+          })
+           // Create autocompletion search box, year slider element, and year text display html element.
            var input = (document.getElementById('pac-input'));
+           var yearSlider = (document.getElementById('release_year_filter'));
            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+           map.controls[google.maps.ControlPosition.TOP_LEFT].push(yearSlider);
            var searchBox = new google.maps.places.SearchBox((input));
            /*
            // Listen for the event fired when the user selects an item from the
@@ -155,7 +182,12 @@
     </script>
   </head>
   <body>
-    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+    <input id="pac-input" class="controls" type="text" placeholder="Enter movie title or director's name">
+    <div id="release_year_filter">
+      <div class="filter_instruction">Filter by movie release year.<br></div>
+      <input id="slide" type="range"  min="1950" max="2050" value="2000"/>
+      <span id="display_year"></span>
+    </div>
     <div id="map-canvas"></div>
   </body>
 </html>
