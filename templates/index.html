@@ -81,9 +81,10 @@
                   var coordPosition = new google.maps.LatLng({{ lat }}, {{ longitude }});
                   var marker = new google.maps.Marker({
                       map: map,
-                      title: "{{ location_text }}",
+                      title: "{{ title }}",
                       position: coordPosition,
-                      releaseYear: "{{ release_year}}"
+                      releaseYear: "{{ release_year}}",
+                      director: "{{ director }}"
                   });
                   markerArray.push(marker);
                   var movieTitleText = "{{ title }}";
@@ -122,56 +123,18 @@
                   }
               }
           })
-           // Create autocompletion search box, year slider element, and year text display html element.
+           // Use google API to position search box, year slider element, and year text display html element on top left.
            var input = (document.getElementById('pac-input'));
            var yearSlider = (document.getElementById('release_year_filter'));
            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
            map.controls[google.maps.ControlPosition.TOP_LEFT].push(yearSlider);
            var searchBox = new google.maps.places.SearchBox((input));
-           /*
-           // Listen for the event fired when the user selects an item from the
+
+           // Attach "places_changed" event handler on the search box. Enable autocompletion. Then do filtering of markers.
            // pick list. Retrieve the matching places for that item.
            google.maps.event.addListener(searchBox, 'places_changed', function() {
-               var places = searchBox.getPlaces();
-              // For each place, get the icon, place name, and location.
-              var bounds = new google.maps.LatLngBounds();
-              for (var i = 0, place; place = places[i]; i++) {
-                  // Create the icon image associated with the place result. Otherwise, the default is a red point icon.
-                  var image = {
-                      url: place.icon,
-                      size: new google.maps.Size(71, 71),
-                      origin: new google.maps.Point(0, 0),
-                      anchor: new google.maps.Point(17, 34),
-                      scaledSize: new google.maps.Size(25, 25)
-                  };
-                  // Create a marker for each place.
-                  var marker = new google.maps.Marker({
-                      map: map,
-                      icon: image,
-                      title: place.name,
-                      position: place.geometry.location
-                  });
-
-                  var content ="<div class='content'><h4 class='place_name'>"+place.name+"</h4><p class='location'>"
-                      +"<b>Location:</b><br>" + place.formatted_address + "</p></div>";
-
-                  if (place.price_level) {
-                      content += "<p class='price_level'><b>Price Level:</b><br>"+ place.price_level.toString() +"</p>";
-                  }
-                 // Create a pop-up window on click.
-                  google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){
-                      return function() {
-                          infowindow.setContent(content);
-                          infowindow.open(map,marker);
-                      };
-                  })(marker,content,infowindow));
-              }
-            });
-           google.maps.event.addListener(map, 'bounds_changed', function() {
-              var bounds = map.getBounds();
-              searchBox.setBounds(bounds);
+                console.log("search box changed");
            });
-*/
       }
 
       function encodeTextForRTLink(name) {
