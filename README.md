@@ -38,9 +38,13 @@ collection such as "Movies", "Locations", and "Actors", which are interconnected
 process faster on the front-end. I would have filter settings on the front-end for "Movies", "Locations", and "Actors",
 in which the search results come from three different db queries.
 
+The biggest disadvantage of this single-page webapp is that the entire work is monolithic. All the methods
+are in one Javascript `initialize` function.
+
 ###Link to other code you're particularly proud of###
-As a hobby, I've been contributing to three large Python-based open source projects. Below are my commits that have
-landed on the master repositories of the following Python projects:
+I'm a believer of working on open source as a way to learn more about the internals of a tool or language. As a hobby,
+I've been contributing to 3 large Python-based open source projects. Below are my commits that have landed on the
+master repositories of the following Python projects:
 
 **Django the web framework**
 https://github.com/django/django/commits/master?author=onceuponatimeforever
