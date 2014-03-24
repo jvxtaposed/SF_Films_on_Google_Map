@@ -123,17 +123,26 @@
                   }
               }
           })
-           // Use google API to position search box, year slider element, and year text display html element on top left.
+           // Use google API to position search box, year slider element, and year text element on top left inside map.
            var input = (document.getElementById('pac-input'));
            var yearSlider = (document.getElementById('release_year_filter'));
            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
            map.controls[google.maps.ControlPosition.TOP_LEFT].push(yearSlider);
            var searchBox = new google.maps.places.SearchBox((input));
 
-           // Attach "places_changed" event handler on the search box. Enable autocompletion. Then do filtering of markers.
-           // pick list. Retrieve the matching places for that item.
+           // Attach "places_changed" event handler on the search box. Enable autocompletion. Then do filtering.
            google.maps.event.addListener(searchBox, 'places_changed', function() {
-                console.log("search box changed");
+                 for (var markerCount=0;markerCount<markerArray.length;markerCount++) {
+                      if (markerArray[markerCount].director!=input.value) {
+                          markerArray[markerCount].setVisible(false);
+                      }
+                      if (markerArray[markerCount].title!=input.value){
+                        markerArray[markerCount].setVisible(false);
+                      }
+                      else {
+                        markerArray[markerCount].setVisible(true);
+                      }
+                 }
            });
       }
 
@@ -147,8 +156,8 @@
   <body>
     <input id="pac-input" class="controls" type="text" placeholder="Enter movie title or director's name">
     <div id="release_year_filter">
-      <div class="filter_instruction">Filter by movie release year.<br></div>
-      <input id="slide" type="range"  min="1950" max="2050" value="2000"/>
+      <div class="filter_instruction">Filter locations by this movie release year or higher.<br></div>
+      <input id="slide" type="range"  min="1950" max="2014" value="2000"/>
       <span id="display_year"></span>
     </div>
     <div id="map-canvas"></div>
