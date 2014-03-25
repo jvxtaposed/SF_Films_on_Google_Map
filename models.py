@@ -1,7 +1,3 @@
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
-from sqlalchemy.orm import sessionmaker, relationship, backref, scoped_session
 from flask import Flask
 from flask.ext.mongoengine import MongoEngine
 from mongoengine import connect
@@ -15,8 +11,15 @@ app.config.update(
 )
 DB_NAME = 'film_location'
 app.config["MONGODB_DB"] = DB_NAME
-connect(DB_NAME, host="mongodb://localhost/film_location")
-db = MongoEngine(app)
+DB_USERNAME = "susan"
+DB_PASSWORD = "susan"
+DB_HOST_ADDRESS = "ds031098.mongolab.com:31098/film_location"
+try:
+    connect(DB_NAME, host='mongodb://' + DB_USERNAME + ':' + DB_PASSWORD + '@' + DB_HOST_ADDRESS)
+    db = MongoEngine(app)
+except:
+    print "ERROR: Connection to MongoDB hosted on MangoLab.com has failed!"
+    raise
 
 #----------------------------------------
 # Define classes below.

@@ -7,7 +7,6 @@ from flask import Flask
 from flask.ext.mongoengine import MongoEngine
 from mongoengine import connect
 from models import Film_Location
-from mongoengine.base import ValidationError
 
 # Libraries used for geocoding the string location text
 import urllib2
@@ -22,9 +21,15 @@ app.config.update(
 )
 DB_NAME = 'film_location'
 app.config["MONGODB_DB"] = DB_NAME
-connect(DB_NAME, host="mongodb://localhost/film_location")
-db = MongoEngine(app)
-
+DB_USERNAME = "susan"
+DB_PASSWORD = "susan"
+DB_HOST_ADDRESS = "ds031098.mongolab.com:31098/film_location"
+try:
+    connect(DB_NAME, host='mongodb://' + DB_USERNAME + ':' + DB_PASSWORD + '@' + DB_HOST_ADDRESS)
+    db = MongoEngine(app)
+except:
+    print "ERROR: Connection to MongoDB hosted on MangoLab.com has failed!"
+    raise
 #----------------------------------------
 # Load database with values from JSON file.
 #----------------------------------------
@@ -82,4 +87,7 @@ def load_db():
             if "actor_3" in film_data:
                 new_film_data.actor_3 = film_data["actor_3"]
             new_film_data.save()
+
+    for film_location in Film_Location.objects:
+        print film_location.title
 load_db()

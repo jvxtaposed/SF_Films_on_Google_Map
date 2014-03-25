@@ -19,9 +19,16 @@ from models import Film_Location
 
 DB_NAME = 'film_location'
 app.config["MONGODB_DB"] = DB_NAME
-connect(DB_NAME, host="mongodb://localhost/film_location")
-# connect(DB_NAME, host='mongodb://' + DB_USERNAME + ':' + DB_PASSWORD + '@' + DB_HOST_ADDRESS)
-db = MongoEngine(app)
+
+DB_USERNAME = "susan"
+DB_PASSWORD = "susan"
+DB_HOST_ADDRESS = "ds031098.mongolab.com:31098/film_location"
+try:
+    connect(DB_NAME, host='mongodb://' + DB_USERNAME + ':' + DB_PASSWORD + '@' + DB_HOST_ADDRESS)
+    db = MongoEngine(app)
+except:
+    print "ERROR: Connection to MongoDB hosted on MangoLab.com has failed!"
+    raise
 
 #----------------------------------------
 # Controllers
