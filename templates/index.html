@@ -41,6 +41,12 @@
         padding-left: 14px;
         width: 401px;
       }
+      .app_title {
+        font-size: 22px;
+      }
+      .author {
+        font-size: 16px;
+      }
       /* Ribbon CSS comes from http://css-tricks.com/snippets/css/ribbon/ */
      .ribbon {
        font-size: 16px !important;
@@ -207,13 +213,17 @@
   <body>
     <input id="pac-input" class="controls" type="text" placeholder="Enter movie title or director's name">
     <div id="release_year_filter">
-      <div class="filter_instruction">Filter locations by this movie release year or higher.<br></div>
-      <input id="slide" type="range"  min="1950" max="2014" value="2000"/>
+      <div class="filter_instruction">Show only movies with this release year or higher.<br></div>
+      <input id="slide" type="range"  min="1940" max="2014" value="2000"/>
       <span id="display_year"></span>
     </div>
     <button id="undo_all_filters">Undo All Filters</button>
     <h1 class="ribbon">
-      <strong class="ribbon-content">Made in San Francisco by <a target='_blank' href="https://www.github.com/onceuponatimeforever/">Susan Tan<a></strong>
+      <strong class="ribbon-content">
+        <div class="app_title">SF Film Locations</div><br>
+        <div class="author">Made in San Francisco by <a target='_blank' href="https://www.github.com/onceuponatimeforever/">Susan Tan</a><br>with Flask connected to MongoDB
+        </div>
+      </strong>
     </h1>
     <div id="map-canvas"></div>
   </body>
